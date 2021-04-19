@@ -11,19 +11,26 @@ vector<double> input_numbers(size_t count)
     }
     return result;
 }
-void find_minmax(vector<double> numbers, double& min, double& max) {
+void find_minmax(vector<double> numbers, double& min, double& max)
+{
     min = numbers[0];
     max = numbers[0];
-    for (double number : numbers) {
-        if (number < min) {
+    for (double number : numbers)
+    {
+        if (number < min)
+        {
             min = number;
         }
-        if (number > max) {
+        if (number > max)
+        {
             max = number;
         }
-    }}
-void make_histogram()
- for (size_t  i = 0; i < number_count; i++)
+    }
+}
+vector <size_t> make_histogram(vector<double> numbers, size_t bin_count, double min, double max, size_t  number_count,  double bin_size)
+{
+    vector <size_t> bins;
+    for (size_t  i = 0; i < number_count; i++)
     {
         bool  found = false;
         for (size_t j = 0; (j < bin_count - 1) && !found; j++)
@@ -41,6 +48,8 @@ void make_histogram()
             bins[bin_count - 1]++;
         }
     }
+    return 0;
+}
 
 int main()
 {
@@ -64,8 +73,9 @@ int main()
     size_t  bin_count;
     cerr <<  "Enter bin_count: ";
     cin >>  bin_count;
-    vector <size_t> bins (bin_count);
+    //vector <size_t> bins (bin_count);
     double bin_size = (max - min) / bin_count;
+    const auto bins = make_histogram(numbers, bin_count, min, max, number_count, bin_size);
 
     size_t  Max = bins[0];
     for (size_t  j=1; j<bin_count; j++)
