@@ -48,7 +48,41 @@ vector <size_t> make_histogram(vector<double> numbers, size_t bin_count, double 
             bins[bin_count - 1]++;
         }
     }
-    return 0;
+    return bins;
+}
+
+void show_histogram_text(vector <size_t> bins, const size_t MAX_ASTERISK)
+{
+
+     size_t bin_count = bins.size();
+    size_t  Max = bins[0];
+    for (size_t  j=1; j<bin_count; j++)
+    {
+        if (bins[j]>Max)
+            Max = bins[j];
+    }
+    for (size_t  j=0; j<bin_count; j++)
+    {
+        if(bins[j]>=100)
+            cout<<bins[j];
+        if (bins[j]<10)
+            cout <<"  "<< bins[j];
+        else if (bins[j]<100)
+            cout<< " "<< bins[j] ;
+        cout << "|";
+        if(Max>MAX_ASTERISK)
+        {
+            size_t  height = MAX_ASTERISK * (static_cast<double>(bins[j]) / Max);
+            for (size_t  a=0; a<height; a++)
+            {
+                cout << "*";
+            }
+        }
+        else
+            for(size_t a=0; a<bins[j]; a++)
+                cout << "*";
+        cout << endl;
+    }
 }
 
 int main()
@@ -75,35 +109,8 @@ int main()
     cin >>  bin_count;
     //vector <size_t> bins (bin_count);
     double bin_size = (max - min) / bin_count;
-    const auto bins = make_histogram(numbers, bin_count, min, max, number_count, bin_size);
+    const auto bins = make_histogram(numbers, bin_count, min, max, bin_size, MAX_ASTERISK);
+    show_histogram_text(bins, number_count);
 
-    size_t  Max = bins[0];
-    for (size_t  j=1; j<bin_count; j++)
-    {
-        if (bins[j]>Max)
-            Max = bins[j];
-    }
-    for (size_t  j=0; j<bin_count; j++)
-    {
-        if(bins[j]>=100)
-            cout<<bins[j];
-        if (bins[j]<10)
-            cout <<"  "<< bins[j];
-        else if (bins[j]<100)
-            cout<< " "<< bins[j] ;
-        cout << "|";
-        if(number_count>MAX_ASTERISK)
-        {
-            size_t  height = MAX_ASTERISK * (static_cast<double>(bins[j]) / Max);
-            for (size_t  a=0; a<height; a++)
-            {
-                cout << "*";
-            }
-        }
-        else
-            for(size_t a=0; a<bins[j]; a++)
-                cout << "*";
-        cout << endl;
-    }
     return 0;
 }
