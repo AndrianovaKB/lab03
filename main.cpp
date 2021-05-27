@@ -1,5 +1,9 @@
 #include <iostream>
 #include <vector>
+#include <string>
+
+const size_t SCREEN_WIDTH = 80;
+const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
 using namespace std;
 
 vector<double> input_numbers(size_t count)
@@ -11,7 +15,7 @@ vector<double> input_numbers(size_t count)
     }
     return result;
 }
-void find_minmax(vector<double> numbers, double& min, double& max)
+void find_minmax(const vector<double>& numbers, double& min, double& max)
 {
     min = numbers[0];
     max = numbers[0];
@@ -27,30 +31,21 @@ void find_minmax(vector<double> numbers, double& min, double& max)
         }
     }
 }
-vector <size_t> make_histogram(vector<double> numbers, size_t bin_count, double min, double max, size_t  number_count,  double bin_size)
+vector <size_t> make_histogram(const vector<double>& numbers, size_t bin_count)
 {
+    double min;
+    double max;
     vector <size_t> bins(bin_count);
-    for (size_t  i = 0; i < number_count; i++)
-    {
-        bool  found = false;
-        for (size_t j = 0; (j < bin_count - 1) && !found; j++)
-        {
-            auto lo = min + j * bin_size;
-            auto hi = min + (j + 1) * bin_size;
-            if ((lo <= numbers[i]) && (numbers[i] < hi))
-            {
-                bins[j]++;
-                found = true;
-            }
+    find_minmax(numbers, min, max);
+    for (double number : numbers) {
+        size_t bin = (size_t)((number - min) / (max - min) * bin_count);
+        if (bin == bin_count) {
+            bin--;
         }
-        if (!found)
-        {
-            bins[bin_count - 1]++;
-        }
+        bins[bin]++;
     }
     return bins;
 }
-
 void show_histogram_text(vector <size_t> bins, const size_t MAX_ASTERISK)
 {
 
@@ -85,32 +80,66 @@ void show_histogram_text(vector <size_t> bins, const size_t MAX_ASTERISK)
     }
 }
 
+void
+svg_begin(double width, double height)
+{
+    cout << "<?xml version='1.0' encoding='UTF-8'?>\n";
+    cout << "<svg ";
+    cout << "width='" << width << "' ";
+    cout << "height='" << height << "' ";
+    cout << "viewBox='0 0 " << width << " " << height << "' ";
+    cout << "xmlns='http://www.w3.org/2000/svg'>\n";
+}
+void
+svg_text(double left, double baseline, string text)
+{
+    cout << "<text x='" << left << "' y='" << baseline << "'>" << text << "</text>";
+}
+void svg_rect(double x, double y, double width, double height,string stroke, string fill)
+{
+    cout << "<rect x='" << x << "' y='" << y << "' width='" << width << "' height='" << height <<"' stroke='"<<stroke<<"' fill='"<< fill<<"'/>";
+}
+void
+svg_end()
+{
+    cout << "</svg>\n";
+}
+
+void show_histogram_svg(const vector <size_t>& bins, string& stroke, string& fill)
+{
+    const auto IMAGE_WIDTH = 300;
+    const auto IMAGE_HEIGHT = 300;
+    const auto TEXT_LEFT = 20;
+    const auto TEXT_BASELINE = 20;
+    const auto TEXT_WIDTH = 50;
+    const auto BIN_HEIGHT = 30;
+    const auto BLOCK_WIDTH = 10;
+    double top = 0;
+    svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
+    for (size_t bin : bins)
+    {
+        const double bin_width = BLOCK_WIDTH * bin;
+        svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bin));
+        svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT,"blue", "#ffeeee");
+        top += BIN_HEIGHT;
+    }
+    svg_end();
+}
+
 int main()
 {
     size_t  number_count;
     cerr <<  "Enter number count: ";
     cin >>  number_count;
     const auto numbers = input_numbers(number_count);
-    double min;
-    double max;
-    find_minmax(numbers, min, max);
-    size_t SCREEN_WIDTH;
-    cerr << "Enter SCREEN_WIDTH:";
-    cin >> SCREEN_WIDTH;
-    while(SCREEN_WIDTH < 7 || SCREEN_WIDTH > 80 || SCREEN_WIDTH < 1/3*(number_count))
-    {
-        cerr << "invalid input, please enter again";
-        cerr << "Enter SCREEN_WIDTH:";
-        cin >> SCREEN_WIDTH;
-    }
-    const size_t MAX_ASTERISK = SCREEN_WIDTH - 3 - 1;
     size_t  bin_count;
     cerr <<  "Enter bin_count: ";
     cin >>  bin_count;
     //vector <size_t> bins (bin_count);
-    double bin_size = (max - min) / bin_count;
-    const auto bins = make_histogram(numbers, bin_count, min, max, number_count, bin_size);
-    show_histogram_text(bins, MAX_ASTERISK);
-    system ("pause");
+    const auto bins = make_histogram(numbers, bin_count);
+    //show_histogram_text(bins, MAX_ASTERISK);
+    string stroke;
+    string fill;
+    show_histogram_svg(bins,stroke,fill);
     return 0;
 }
