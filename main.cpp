@@ -3,18 +3,19 @@
 #include <string>
 #include <math.h>
 #include "histogram.h"
+#include "histogram.cpp"
 #include "svg.h"
 
 const size_t SCREEN_WIDTH = 80;
 const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
 using namespace std;
 
-vector<double> input_numbers(size_t count)
+vector<double> input_numbers(istream& in,size_t count)
 {
     vector<double> result(count);
     for (size_t i = 0; i < count; i++)
     {
-        cin >> result[i];
+        in >> result[i];
     }
     return result;
 }
@@ -37,7 +38,6 @@ vector <size_t> make_histogram(const vector<double>& numbers, size_t bin_count)
 }
 void show_histogram_text(vector <size_t> bins, const size_t MAX_ASTERISK)
 {
-
     size_t bin_count = bins.size();
     size_t  Max = bins[0];
     for (size_t  j=1; j<bin_count; j++)
@@ -73,7 +73,7 @@ int main()
     size_t  number_count;
     cerr <<  "Enter number count: ";
     cin >>  number_count;
-    const auto numbers = input_numbers(number_count);
+    const auto numbers = input_numbers(cin,number_count);
     size_t  bin_count;
     cerr <<  "Enter bin_count: ";
     cin >>  bin_count;
