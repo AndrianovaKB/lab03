@@ -26,23 +26,22 @@ svg_end()
 {
     cout << "</svg>\n";
 }
-double input_image_width(size_t number_count, double BLOCK_WIDTH,istream& in)
+double input_image_width(size_t number_count, double BLOCK_WIDTH, double& IMAGE_WIDTH,istream& in)
 {
-    double IMAGE_WIDTH;
+    //double IMAGE_WIDTH;
     cerr << "Enter IMAGE_WIDTH:";
     in >> IMAGE_WIDTH;
-    image_width (number_count, BLOCK_WIDTH, cin);
+    image_width (number_count, BLOCK_WIDTH, IMAGE_WIDTH, cin);
 }
-double image_width (size_t number_count, double BLOCK_WIDTH, istream& in)
+double image_width (size_t number_count, double BLOCK_WIDTH, double& IMAGE_WIDTH, istream& in)
 {
-    double IMAGE_WIDTH;
     while(IMAGE_WIDTH < 70 || IMAGE_WIDTH > 800 || IMAGE_WIDTH < 1/3*(number_count*BLOCK_WIDTH))
     {
         cerr << "invalid input, please enter again";
         cerr << "Enter SCREEN_WIDTH:";
         in >> IMAGE_WIDTH;
     }
-    return IMAGE_WIDTH;
+    //return IMAGE_WIDTH;
 }
 void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  number_count, string& stroke, string& fill)
 {
@@ -52,7 +51,7 @@ void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  n
     const auto TEXT_WIDTH = 50;
     const auto BIN_HEIGHT = 30;
     const auto BLOCK_WIDTH = 10;
-    double IMAGE_WIDTH = input_image_width(number_count, BLOCK_WIDTH, cin);
+    double IMAGE_WIDTH = input_image_width(number_count, BLOCK_WIDTH, IMAGE_WIDTH, cin);
     double top = 0;
     size_t  Max = bins[0];
     for (size_t  j=1; j<bin_count; j++)
