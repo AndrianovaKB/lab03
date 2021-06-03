@@ -3,6 +3,7 @@
 #include <string>
 #include <math.h>
 #include "histogram.h"
+#include "histogram.cpp"
 #include "svg.h"
 
 const size_t SCREEN_WIDTH = 80;
@@ -70,6 +71,7 @@ void show_histogram_text(vector <size_t> bins, const size_t MAX_ASTERISK)
 }
 int main()
 {
+    double IMAGE_WIDTH;
     size_t  number_count;
     cerr <<  "Enter number count: ";
     cin >>  number_count;
