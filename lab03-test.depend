@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1622709073 source:c:\users\alex\desktop\kristina\lab03\lab03\test.cpp
+	"histogram.h"
+	"svg.h"
+	<cassert>
+	<math.h>
+
+1622401489 c:\users\alex\desktop\kristina\lab03\lab03\histogram.h
+	<vector>
+
+1622401765 source:c:\users\alex\desktop\kristina\lab03\lab03\histogram.cpp
+	"histogram.h"
+
+1622708963 source:c:\users\alex\desktop\kristina\lab03\lab03\svg.cpp
+	"svg.h"
+
+1622697863 c:\users\alex\desktop\kristina\lab03\lab03\svg.h
+	<iostream>
+	<vector>
+	<string>
+
