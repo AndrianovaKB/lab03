@@ -45,6 +45,7 @@ test_empty()
     double max = 0;
     find_minmax({}, min, max);
 }
+//модульные тесты
 void
 test ()
 {
@@ -64,7 +65,7 @@ test2 ()
     image_width (5, 10, IMAGE_WIDTH, cin);
 }
 int
-main()
+main ()
 {
     double IMAGE_WIDTH;
     test_positive();
