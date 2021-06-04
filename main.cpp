@@ -9,10 +9,7 @@
 const size_t SCREEN_WIDTH = 80;
 const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
 using namespace std;
-struct Input {
-    vector<double> numbers;
-    size_t bin_count;
-};
+
 vector<double>
 input_numbers(istream& in, size_t count)
 {
