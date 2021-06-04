@@ -9,6 +9,10 @@
 const size_t SCREEN_WIDTH = 80;
 const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
 using namespace std;
+struct Input {
+    vector<double> numbers;
+    size_t bin_count;
+};
 vector<double>
 input_numbers(istream& in, size_t count)
 {
@@ -19,22 +23,37 @@ input_numbers(istream& in, size_t count)
     }
     return result;
 }
-vector <size_t> make_histogram(const vector<double>& numbers, size_t bin_count)
+Input
+read_input(istream& in) {
+    Input data;
+
+    cerr << "Enter number count: ";
+    size_t number_count;
+    in >> number_count;
+
+    cerr << "Enter numbers: ";
+    data.numbers = input_numbers(in, number_count);
+
+    cerr << "Enter bin count: ";
+    in >> data.bin_count;
+    return data;
+}
+vector <size_t> make_histogram(const Input& data)
 {
     double min;
     double max;
-    vector <size_t> bins(bin_count);
-    find_minmax(numbers, min, max);
-    for (double number : numbers)
+    vector <size_t> result(data.bin_count);
+    find_minmax(data.numbers, min, max);
+    for (double number : data.numbers)
     {
-        size_t bin = (size_t)((number - min) / (max - min) * bin_count);
-        if (bin == bin_count)
+        size_t bin = (size_t)((number - min) / (max - min) * data.bin_count);
+        if (bin == data.bin_count)
         {
             bin--;
         }
-        bins[bin]++;
+        result[bin]++;
     }
-    return bins;
+    return result;
 }
 void show_histogram_text(vector <size_t> bins, const size_t MAX_ASTERISK)
 {
@@ -70,15 +89,11 @@ void show_histogram_text(vector <size_t> bins, const size_t MAX_ASTERISK)
 }
 int main()
 {
+    Input input;
     size_t  number_count;
-    cerr <<  "Enter number count: ";
-    cin >>  number_count;
-    const auto numbers = input_numbers(cin, number_count);
+    input = read_input(cin);
     size_t  bin_count;
-    cerr <<  "Enter bin_count: ";
-    cin >>  bin_count;
-    //vector <size_t> bins (bin_count);
-    const auto bins = make_histogram(numbers, bin_count);
+    const auto bins = make_histogram(input);
     //show_histogram_text(bins, MAX_ASTERISK);
     string stroke;
     string fill;
