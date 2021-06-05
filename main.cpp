@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <math.h>
+#include <curl/curl.h>
 #include "histogram.h"
 #include "histogram.cpp"
 #include "svg.h"
@@ -86,6 +87,7 @@ void show_histogram_text(vector <size_t> bins, const size_t MAX_ASTERISK)
 }
 int main()
 {
+    curl_global_init(CURL_GLOBAL_ALL);
     Input input;
     size_t  number_count;
     input = read_input(cin, true);
