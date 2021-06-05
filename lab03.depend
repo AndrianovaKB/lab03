@@ -1,0 +1,71 @@
+# depslib dependency file v1.0
+1622886911 source:c:\users\alex\desktop\kristina\lab03\lab03\main.cpp
+	<iostream>
+	<vector>
+	<string>
+	<math.h>
+	<curl/curl.h>
+	"histogram.h"
+	"histogram.cpp"
+	"svg.h"
+
+1622906296 c:\users\alex\desktop\kristina\lab03\lab03\histogram.h
+	<vector>
+
+1622828005 c:\users\alex\desktop\kristina\lab03\lab03\svg.h
+	<iostream>
+	<vector>
+	<string>
+
+1622827981 source:c:\users\alex\desktop\kristina\lab03\lab03\svg.cpp
+	"svg.h"
+
+1622906296 source:c:\users\alex\desktop\kristina\lab03\lab03\test.cpp
+	<cassert>
+	"histogram.h"
+
+1622827931 c:\users\alex\desktop\kristina\lab03\lab03\histogram.cpp
+	"histogram.h"
+
+1621918820 c:\users\alex\desktop\kristina\lab03\lab03\curl\include\curl\curl.h
+	"curlver.h"
+	"system.h"
+	<stdio.h>
+	<limits.h>
+	<osreldate.h>
+	<sys/types.h>
+	<time.h>
+	<winsock2.h>
+	<ws2tcpip.h>
+	<sys/select.h>
+	<sys/socket.h>
+	<sys/time.h>
+	<support/SupportDefs.h>
+	"easy.h"
+	"multi.h"
+	"urlapi.h"
+	"options.h"
+	"typecheck-gcc.h"
+
+1621999116 c:\users\alex\desktop\kristina\lab03\lab03\curl\include\curl\curlver.h
+
+1618201874 c:\users\alex\desktop\kristina\lab03\lab03\curl\include\curl\system.h
+	<winsock2.h>
+	<windows.h>
+	<ws2tcpip.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<sys/poll.h>
+
+1618201874 c:\users\alex\desktop\kristina\lab03\lab03\curl\include\curl\easy.h
+
+1618201874 c:\users\alex\desktop\kristina\lab03\lab03\curl\include\curl\multi.h
+	"curl.h"
+
+1621855406 c:\users\alex\desktop\kristina\lab03\lab03\curl\include\curl\urlapi.h
+	"curl.h"
+
+1618201874 c:\users\alex\desktop\kristina\lab03\lab03\curl\include\curl\options.h
+
+1621918820 c:\users\alex\desktop\kristina\lab03\lab03\curl\include\curl\typecheck-gcc.h
+
