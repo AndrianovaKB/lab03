@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1622919649 source:c:\users\alex\desktop\kristina\lab03\lab03\main.cpp
+1622980920 source:c:\users\alex\desktop\kristina\lab03\lab03\main.cpp
 	<iostream>
 	<vector>
 	<string>
@@ -9,7 +9,7 @@
 	"histogram.cpp"
 	"svg.h"
 
-1622921654 c:\users\alex\desktop\kristina\lab03\lab03\histogram.h
+1622926757 c:\users\alex\desktop\kristina\lab03\lab03\histogram.h
 	<vector>
 
 1622919649 c:\users\alex\desktop\kristina\lab03\lab03\svg.h
@@ -20,7 +20,7 @@
 1622919649 source:c:\users\alex\desktop\kristina\lab03\lab03\svg.cpp
 	"svg.h"
 
-1622922419 source:c:\users\alex\desktop\kristina\lab03\lab03\test.cpp
+1622972659 source:c:\users\alex\desktop\kristina\lab03\lab03\test.cpp
 	"histogram.h"
 	"svg.h"
 	<cassert>
