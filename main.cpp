@@ -93,7 +93,10 @@ int main(int argc, char* argv[])
     cout << "argc=" << argc;
         if (argc > 1)
     {
-        cout << argv[1]<<endl;
+        cout << argc << endl;
+        for(size_t i=0; i<argc; i++)
+        cout << argv[i]<<" ";
+        return 0;
     }
     else
     {
