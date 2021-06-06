@@ -111,6 +111,15 @@ download(const string& address) {
                 cout << curl_easy_strerror(res);
                 exit(1);
             }
+            else
+            {
+                double curtime = 0;
+                res = curl_easy_getinfo(curl, CURLINFO_TOTAL_TIME, &curtime);
+                if(!res)
+                {
+                 cout << "total time spent downloading the file:" << curtime << "\n";
+                }
+            }
         }
 
     return read_input(buffer, false);
