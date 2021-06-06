@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 #include <math.h>
 #include <curl/curl.h>
 #include "histogram.h"
@@ -85,23 +86,24 @@ void show_histogram_text(vector <size_t> bins, const size_t MAX_ASTERISK)
         cout << endl;
     }
 }
-int main(int argc, char* argv[])
-{
-    //Input input;
-    size_t  number_count;
-    cout << "argc=" << argc;
-        if (argc > 1)
-    {
-        cout << argc << endl;
-        for(size_t i=0; i<argc; i++)
-        cout << argv[i]<<" ";
-
-        curl_global_init(CURL_GLOBAL_ALL);
+size_t
+write_data(void* items, size_t item_size, size_t item_count, void* ctx) {
+    size_t data_size = item_size * item_count;
+    stringstream* buffer = reinterpret_cast<stringstream*>(ctx);
+    buffer->write(reinterpret_cast<const char*>(items), data_size);
+    return 0;
+}
+Input
+download(const string& address) {
+    stringstream buffer;
+    curl_global_init(CURL_GLOBAL_ALL);
         CURL *curl = curl_easy_init();
         if(curl)
         {
             CURLcode res;
-            curl_easy_setopt(curl, CURLOPT_URL, argv[1]);
+            curl_easy_setopt(curl, CURLOPT_URL, address.c_str());
+            curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+            curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
             res = curl_easy_perform(curl);
             curl_easy_cleanup(curl);
             if(res)
@@ -110,9 +112,22 @@ int main(int argc, char* argv[])
                 exit(1);
             }
         }
-        return 0;
+
+    return read_input(buffer, false);
+}
+int main(int argc, char* argv[])
+{
+    Input input;
+    size_t  number_count;
+    cout << "argc=" << argc;
+        if (argc > 1)
+    {
+        input = download(argv[1]);
     }
-    const auto input = read_input(cin, true);
+     else
+    {
+        input = read_input(cin, true);
+    }
     size_t  bin_count;
     const auto bins = make_histogram(input);
     //show_histogram_text(bins, MAX_ASTERISK);
