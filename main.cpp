@@ -85,12 +85,21 @@ void show_histogram_text(vector <size_t> bins, const size_t MAX_ASTERISK)
         cout << endl;
     }
 }
-int main()
+int main(int argc, char* argv[])
 {
     curl_global_init(CURL_GLOBAL_ALL);
     Input input;
     size_t  number_count;
-    input = read_input(cin, true);
+    cout << "argc=" << argc;
+        if (argc > 1)
+    {
+        cout << argv[1]<<endl;
+    }
+    else
+    {
+         input = read_input(cin, true);
+    }
+    //input = read_input(cin, true);
     size_t  bin_count;
     const auto bins = make_histogram(input);
     //show_histogram_text(bins, MAX_ASTERISK);
