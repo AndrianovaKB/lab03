@@ -84,6 +84,6 @@ int main()
     //show_histogram_text(bins, MAX_ASTERISK);
     string stroke;
     string fill;
-    show_histogram_svg(bins, MAX_ASTERISK, number_count,stroke,fill);
+    show_histogram_svg(bins, bin_count, number_count,stroke,fill);
     return 0;
 }
