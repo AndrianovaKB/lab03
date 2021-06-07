@@ -57,24 +57,26 @@ test ()
     //double IMAGE_WIDTH=400;
     stringstream iw ("400");
     double res = image_width (5, 10, iw);
+    assert(res == 400);
 }
 void
 test1 ()
 {
     //double IMAGE_WIDTH = 1000;
-    stringstream iw ("1000");
+    stringstream iw ("1000 350");
     double res = image_width (5, 10, iw);
-
+    assert(res == 350);
 }
 void
 test2 ()
 {
     //double IMAGE_WIDTH = 30;
-    stringstream iw ("30");
+    stringstream iw ("30 750");
     double res = image_width (5, 10, iw);
+    assert(res == 750);
 }
 int
-main1 ()
+main()
 {
     double IMAGE_WIDTH;
     test_positive();
