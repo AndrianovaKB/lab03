@@ -1,20 +1,23 @@
 # depslib dependency file v1.0
-1622709073 source:c:\users\alex\desktop\kristina\lab03\lab03\test.cpp
+1623090790 source:c:\users\alex\desktop\kristina\lab03\lab03\test.cpp
 	"histogram.h"
 	"svg.h"
 	<cassert>
 	<math.h>
+	<sstream>
+	<string>
+	<iostream>
 
-1622401489 c:\users\alex\desktop\kristina\lab03\lab03\histogram.h
+1623066190 c:\users\alex\desktop\kristina\lab03\lab03\histogram.h
 	<vector>
 
-1622401765 source:c:\users\alex\desktop\kristina\lab03\lab03\histogram.cpp
+1622919644 source:c:\users\alex\desktop\kristina\lab03\lab03\histogram.cpp
 	"histogram.h"
 
-1622708963 source:c:\users\alex\desktop\kristina\lab03\lab03\svg.cpp
+1623085083 source:c:\users\alex\desktop\kristina\lab03\lab03\svg.cpp
 	"svg.h"
 
-1622697863 c:\users\alex\desktop\kristina\lab03\lab03\svg.h
+1623086821 c:\users\alex\desktop\kristina\lab03\lab03\svg.h
 	<iostream>
 	<vector>
 	<string>
