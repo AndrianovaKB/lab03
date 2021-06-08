@@ -7,6 +7,7 @@
 #include "histogram.h"
 #include "histogram.cpp"
 #include "svg.h"
+#include <windows.h>
 
 const size_t SCREEN_WIDTH = 80;
 const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
@@ -126,7 +127,10 @@ download(const string& address) {
 }
 int main(int argc, char* argv[])
 {
-    Input input;
+    printf("Windows (decimal) version is %u.\n", GetVersion());
+    printf("Windows (16x) version is %x.\n", GetVersion());
+    return 0;
+    /*Input input;
     size_t  number_count;
     cout << "argc=" << argc;
         if (argc > 1)
@@ -142,6 +146,6 @@ int main(int argc, char* argv[])
     //show_histogram_text(bins, MAX_ASTERISK);
     string stroke;
     string fill;
-    show_histogram_svg(bins, bin_count, number_count,stroke,fill);
+    show_histogram_svg(bins, bin_count, number_count,stroke,fill);*/
     return 0;
 }
