@@ -1,4 +1,7 @@
 #include "svg.h"
+#include <string>
+#include <sstream>
+#include <windows.h>
 
 const size_t SCREEN_WIDTH = 80;
 const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
@@ -46,6 +49,31 @@ double image_width (size_t number_count, double BLOCK_WIDTH,  istream& in)
     }
     return image_width;
 }
+string
+make_info_text() {
+    stringstream buffer;
+
+    DWORD info = GetVersion();
+    DWORD mask = 0x0000ffff;
+    DWORD mask_2 = 0x000000ff;
+    DWORD platform = info >> 16;
+    DWORD version = info & mask;
+    if ((info & 0x80000000) == 0)
+    {
+        DWORD version_major = version & mask_2;
+        DWORD version_minor = version >> 8;
+        DWORD build = platform;
+        buffer << "Windows v" << version_major << "." << version_minor << " (build " << build << ") \n ";
+    }
+
+    DWORD size = MAX_COMPUTERNAME_LENGTH+1;
+    char computer_name[size];
+    GetComputerNameA(computer_name, &size);
+    buffer << "Computer name: " << computer_name;
+
+    return buffer.str();
+}
+
 void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  number_count, string& stroke, string& fill)
 {
     const auto IMAGE_HEIGHT = 300;
@@ -60,11 +88,11 @@ void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  n
     size_t  Max = bins[0];
     for (size_t  j=1; j<bin_count; j++)
     {
-        cout <<"bins["<<j<<"]="<<bins[j];
+        cout <<"bins["<<j<<"]="<<bins[j]<<endl;
         if (bins[j]>Max)
             Max = bins[j];
     }
-    const bool scaling_up = Max*BLOCK_WIDTH > IMAGE_WIDTH-TEXT_WIDTH;
+    const bool scaling_up = (Max*BLOCK_WIDTH) > (IMAGE_WIDTH-TEXT_WIDTH);
     if (scaling_up)
     {
         const double scaling = (double)(IMAGE_WIDTH-TEXT_WIDTH) / (Max*BLOCK_WIDTH);
