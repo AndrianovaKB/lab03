@@ -8,6 +8,7 @@ const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
 void
 svg_begin(double width, double height)
 {
+    //cout <<"width="<<width<<endl;
     cout << "<?xml version='1.0' encoding='UTF-8'?>\n";
     cout << "<svg ";
     cout << "width='" << width << "' ";
@@ -64,7 +65,7 @@ make_info_text() {
         DWORD version_major = version & mask_2;
         DWORD version_minor = version >> 8;
         DWORD build = platform;
-        buffer << "Windows v" << version_major << "." << version_minor << " (build " << build << ") \n ";
+        buffer << "Windows v" << version_major << "." << version_minor << " (build " << build << ")"<<" \n ";
     }
 
     DWORD size = MAX_COMPUTERNAME_LENGTH+1;
@@ -84,16 +85,14 @@ void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  n
     const auto BIN_HEIGHT = 30;
     const auto BLOCK_WIDTH = 10;
     double IMAGE_WIDTH = image_width(number_count, BLOCK_WIDTH,  cin);
-    cerr << "IMAGE_WIDTH=" << IMAGE_WIDTH;
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
     double top = 0;
-    size_t  Max = bins[0];
-    for (size_t  j=1; j<bin_count; j++)
-    {
-        cerr <<"bins["<<j<<"]="<<bins[j]<<endl;
-        if (bins[j]>Max)
-            Max = bins[j];
-    }
+    size_t  Max = 0;
+    for (size_t count : bins)
+        {
+        if (count > Max)
+            Max = count;
+        }
     const bool scaling_up = (Max*BLOCK_WIDTH) > (IMAGE_WIDTH-TEXT_WIDTH);
     if (scaling_up)
     {
