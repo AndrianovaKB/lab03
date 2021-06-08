@@ -25,7 +25,7 @@ input_numbers(istream& in, size_t count)
 Input
 read_input(istream& in, bool promt) {
     Input data;
-
+    if(promt)
     cerr << "Enter number count: ";
     size_t number_count;
     in >> number_count;
@@ -91,14 +91,14 @@ write_data(void* items, size_t item_size, size_t item_count, void* ctx) {
     size_t data_size = item_size * item_count;
     stringstream* buffer = reinterpret_cast<stringstream*>(ctx);
     buffer->write(reinterpret_cast<const char*>(items), data_size);
-    return 0;
+    return data_size;
 }
 Input
 download(const string& address) {
     stringstream buffer;
     curl_global_init(CURL_GLOBAL_ALL);
-        CURL *curl = curl_easy_init();
-        if(curl)
+    CURL *curl = curl_easy_init();
+    if(curl)
         {
             CURLcode res;
             curl_easy_setopt(curl, CURLOPT_URL, address.c_str());
@@ -128,8 +128,8 @@ int main(int argc, char* argv[])
 {
     Input input;
     size_t  number_count;
-    cout << "argc=" << argc << endl;
-        if (argc > 1)
+    //cout << "argc=" << argc << endl;
+    if (argc > 1)
     {
         input = download(argv[1]);
     }
@@ -139,10 +139,10 @@ int main(int argc, char* argv[])
     }
     size_t  bin_count;
     const auto bins = make_histogram(input);
-    for (size_t  j=1; j<bin_count; j++)
+    /*for (size_t  j=1; j<bin_count; j++)
     {
         cout <<"bins["<<j<<"]="<<bins[j]<<endl;
-    }
+    }*/
     //show_histogram_text(bins, MAX_ASTERISK);
     string stroke;
     string fill;
