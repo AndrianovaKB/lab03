@@ -43,10 +43,11 @@ double image_width (size_t number_count, double BLOCK_WIDTH,  istream& in)
     in >> image_width;
     while(image_width < 70 || image_width > 800 || image_width < 1/3*(number_count*BLOCK_WIDTH))
     {
-        cerr << "invalid input, please enter again";
+        cerr << "invalid input, please enter again" << endl;
         cerr << "Enter SCREEN_WIDTH:";
         in >> image_width;
     }
+
     return image_width;
 }
 string
@@ -83,12 +84,13 @@ void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  n
     const auto BIN_HEIGHT = 30;
     const auto BLOCK_WIDTH = 10;
     double IMAGE_WIDTH = image_width(number_count, BLOCK_WIDTH,  cin);
+    cerr << "IMAGE_WIDTH=" << IMAGE_WIDTH;
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
     double top = 0;
     size_t  Max = bins[0];
     for (size_t  j=1; j<bin_count; j++)
     {
-        cout <<"bins["<<j<<"]="<<bins[j]<<endl;
+        cerr <<"bins["<<j<<"]="<<bins[j]<<endl;
         if (bins[j]>Max)
             Max = bins[j];
     }
@@ -122,5 +124,6 @@ void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  n
             top += BIN_HEIGHT;
         }
     }
+    svg_text(0, top + TEXT_BASELINE, make_info_text());
     svg_end();
 }
