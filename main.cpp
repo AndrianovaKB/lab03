@@ -7,7 +7,6 @@
 #include "histogram.h"
 #include "histogram.cpp"
 #include "svg.h"
-#include <windows.h>
 
 const size_t SCREEN_WIDTH = 80;
 const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
@@ -127,26 +126,9 @@ download(const string& address) {
 }
 int main(int argc, char* argv[])
 {
-    DWORD info = GetVersion();
-    DWORD mask = 0x0000ffff;
-    DWORD mask_2 = 0x000000ff;
-    DWORD platform = info >> 16;
-    DWORD version = info & mask;
-    if ((info & 0x80000000) == 0)
-    {
-        DWORD version_major = version & mask_2;
-        DWORD version_minor = version >> 8;
-        DWORD build = platform;
-        printf("Windows v%u.%u (build %u)\n", version_major, version_minor, build);
-    }
-    DWORD size = MAX_COMPUTERNAME_LENGTH+1;
-    char computer_name[size];
-    GetComputerNameA(computer_name, &size);
-    printf("Computer name: %s\n", computer_name);
-
-    /*Input input;
+    Input input;
     size_t  number_count;
-    cout << "argc=" << argc;
+    cout << "argc=" << argc << endl;
         if (argc > 1)
     {
         input = download(argv[1]);
@@ -157,9 +139,13 @@ int main(int argc, char* argv[])
     }
     size_t  bin_count;
     const auto bins = make_histogram(input);
+    for (size_t  j=1; j<bin_count; j++)
+    {
+        cout <<"bins["<<j<<"]="<<bins[j]<<endl;
+    }
     //show_histogram_text(bins, MAX_ASTERISK);
     string stroke;
     string fill;
-    show_histogram_svg(bins, bin_count, number_count,stroke,fill);*/
+    show_histogram_svg(bins, bin_count, number_count,stroke,fill);
     return 0;
 }
