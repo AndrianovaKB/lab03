@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
+#include <windows.h>
 using namespace std;
 void
 svg_begin(double width, double height);
@@ -13,5 +15,6 @@ void
 svg_end();
 //double input_image_width(size_t number_count, double BLOCK_WIDTH, istream& in);
 double image_width (size_t number_count, double BLOCK_WIDTH, istream& in);
+string make_info_text();
 void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  number_count, string& stroke, string& fill);
 #endif // SVG_H_INCLUDED
