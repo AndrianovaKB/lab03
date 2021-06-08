@@ -127,9 +127,18 @@ download(const string& address) {
 }
 int main(int argc, char* argv[])
 {
-    printf("Windows (decimal) version is %u.\n", GetVersion());
-    printf("Windows (16x) version is %x.\n", GetVersion());
-    return 0;
+    DWORD info = GetVersion();
+    DWORD mask = 0x0000ffff;
+    DWORD mask_2 = 0x000000ff;
+    DWORD platform = info >> 16;
+    DWORD version = info & mask;
+    if ((info & 0x80000000) == 0)
+    {
+        DWORD version_major = version & mask_2;
+        DWORD version_minor = version >> 8;
+        DWORD build = platform;
+        printf("Windows v%u.%u (build %u)", version_major, version_minor, build);
+    }
     /*Input input;
     size_t  number_count;
     cout << "argc=" << argc;
